@@ -1,3 +1,5 @@
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+
 export default function About() {
   return (
     <section className="section about" id="about">
@@ -21,6 +23,15 @@ export default function About() {
         <div className="rules-grid">
 
           <div className="rule-card reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <div className="icon">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -50,6 +61,15 @@ export default function About() {
           </div>
 
           <div className="rule-card reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <div className="icon">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -78,6 +98,15 @@ export default function About() {
           </div>
 
           <div className="rule-card reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <div className="icon">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -107,6 +136,15 @@ export default function About() {
           </div>
 
           <div className="rule-card reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <div className="icon">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path

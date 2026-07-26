@@ -18,7 +18,7 @@ export default function useLandingEffects() {
     let h;
     let drops = [];
 
-    const DROP_COUNT = 140;
+    const DROP_COUNT = 90;
 
     function resize() {
       w = canvas.width = window.innerWidth;
@@ -51,7 +51,7 @@ export default function useLandingEffects() {
 
         ctx.beginPath();
         ctx.moveTo(d.x, d.y);
-        ctx.lineTo(d.x - d.drift * 6, d.y + d.len);
+        ctx.lineTo(d.x - d.drift * 11, d.y + d.len);
         ctx.strokeStyle = `rgba(180,205,255,${d.opacity})`;
         ctx.lineWidth = 1;
         ctx.stroke();

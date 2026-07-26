@@ -1,112 +1,65 @@
 import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import SpecularButton from "@/components/ui/SpecularButton";
+
+const landingLinks = [
+  ["The Bleed", "#about"],
+  ["Rankings", "#leaderboard"],
+  ["The Watch", "#staff"],
+  ["FAQ", "#faq"],
+];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const { pathname } = useLocation();
+  const inStore = pathname !== "/";
 
   useEffect(() => {
     document.body.classList.toggle("nav-open", menuOpen);
-
-    return () => {
-      document.body.classList.remove("nav-open");
-    };
+    return () => document.body.classList.remove("nav-open");
   }, [menuOpen]);
+
+  useEffect(() => setMenuOpen(false), [pathname]);
 
   const copyIP = async () => {
     try {
       await navigator.clipboard.writeText("play.alonehometown.net");
-
       setCopied(true);
-
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch (err) {
-      console.error(err);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <header className="nav" id="siteNav">
+    <header className={`nav ${inStore ? "nav-store" : ""}`} id="siteNav">
       <div className="container">
-        <a href="#top" className="brand" aria-label="Alone Hometown — home">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M12 20.3C12 20.3 3.9 15.7 2.4 10.5 1.6 7.7 3.4 4.9 6.2 4.9c1.9 0 3.5 1.1 4.2 2.6.7-1.5 2.3-2.6 4.2-2.6 2.8 0 4.6 2.8 3.8 5.6-1.5 5.2-9.8 9.8-9.8 9.8Z"
-              stroke="currentColor"
-              strokeWidth="1.4"
-            />
-          </svg>
-
-          <span className="brand-text">
-            <b>ALONE HOMETOWN</b>
-            <span>BLOODSTEAL SMP</span>
+        <Link to="/" className="brand" aria-label="Alone Hometown home">
+          <span className="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 20.3S3.9 15.7 2.4 10.5C1.6 7.7 3.4 4.9 6.2 4.9c1.9 0 3.5 1.1 4.2 2.6.7-1.5 2.3-2.6 4.2-2.6 2.8 0 4.6 2.8 3.8 5.6-1.5 5.2-9.8 9.8-9.8 9.8Z" stroke="currentColor" strokeWidth="1.4" /></svg>
           </span>
-        </a>
+          <span className="brand-text"><b>ALONE HOMETOWN</b><span>BLOODSTEAL SMP</span></span>
+        </Link>
 
-        <nav
-          className="nav-links"
-          id="navLinks"
-          aria-label="Primary"
-        >
-          <a href="#top">Home</a>
-          <a href="#about">The Bleed</a>
-          <a href="#leaderboard">Rankings</a>
-          <a href="#shop">Shop</a>
-          <a href="#staff">The Watch</a>
-          <a href="#faq">FAQ</a>
-
-          <a
-            href="#"
-            className="nav-cta-item btn btn-outline"
-          >
-            Join Discord
-          </a>
-
-          <button
-            className="nav-cta-item btn btn-primary"
-            type="button"
-            data-copy-ip
-            onClick={copyIP}
-          >
-            <span className="copy-label">
-              {copied ? "Copied!" : "Copy Server IP"}
-            </span>
-          </button>
+        <nav className="nav-links" id="navLinks" aria-label="Primary">
+          <NavLink end to="/">Home</NavLink>
+          {inStore ? <>
+            <NavLink to="/store">Store</NavLink><NavLink to="/support">Support</NavLink><NavLink to="/account">Account</NavLink>
+          </> : <>
+            {landingLinks.slice(0, 2).map(([label, href]) => <a href={href} key={href}>{label}</a>)}
+            <NavLink to="/store">Store</NavLink>
+            {landingLinks.slice(2).map(([label, href]) => <a href={href} key={href}>{label}</a>)}
+          </>}
+          <Link className="nav-mobile-store btn btn-outline" to={inStore ? "/cart" : "/store"}>{inStore ? "View cart" : "Open store"}</Link>
         </nav>
 
         <div className="nav-actions">
-          <a
-            href="#"
-            className="btn btn-outline"
-          >
-            Join Discord
-          </a>
-
-          <button
-            className="btn btn-primary"
-            type="button"
-            data-copy-ip
-            onClick={copyIP}
-          >
-            <span className="copy-label">
-              {copied ? "Copied!" : "Copy IP"}
-            </span>
-          </button>
+          {inStore ? <Link className="nav-cart" to="/cart"><span aria-hidden="true">⌑</span> Cart</Link> : <SpecularButton size="sm" radius={999} tint="#ffffff" tintOpacity={0} blur={0} textColor="#f5f5f5" lineColor="#ff0040" baseColor="#003960" intensity={1} shineSize={16} shineFade={40} thickness={1.3} speed={0.35} followMouse proximity={250} autoAnimate={false}>Join Discord</SpecularButton>}
+          <button className="btn btn-primary" type="button" onClick={copyIP}><span className="copy-label">{copied ? "Copied!" : "Copy IP"}</span></button>
         </div>
 
-        <button
-          className="nav-toggle"
-          id="navToggle"
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-          aria-controls="navLinks"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <button className="nav-toggle" aria-label="Toggle menu" aria-expanded={menuOpen} aria-controls="navLinks" onClick={() => setMenuOpen(!menuOpen)}><span></span><span></span><span></span></button>
       </div>
     </header>
   );

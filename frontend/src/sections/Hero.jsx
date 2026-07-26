@@ -1,3 +1,5 @@
+import SpecularButton from "@/components/ui/SpecularButton";
+
 export default function Hero() {
   return (
     <section className="hero">
@@ -67,12 +69,26 @@ export default function Hero() {
             </span>
           </button>
 
-          <a
-            href="#"
-            className="btn btn-outline"
+          <SpecularButton
+            size="md"
+            radius={999}
+            tint="#ffffff"
+            tintOpacity={0}
+            blur={0}
+            textColor="#f5f5f5"
+            lineColor="#ff0040"
+            baseColor="#003960"
+            intensity={1}
+            shineSize={16}
+            shineFade={40}
+            thickness={1.3}
+            speed={0.35}
+            followMouse
+            proximity={250}
+            autoAnimate={false}
           >
             Join the Discord →
-          </a>
+          </SpecularButton>
         </div>
       </div>
 

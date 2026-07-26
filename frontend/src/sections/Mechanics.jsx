@@ -1,3 +1,5 @@
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+
 export default function Mechanics() {
   return (
     <section className="section mechanics" id="mechanics">
@@ -15,6 +17,15 @@ export default function Mechanics() {
         <div className="steps">
 
           <div className="step reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <span className="num">
               01 — Spawn
             </span>
@@ -31,6 +42,15 @@ export default function Mechanics() {
           </div>
 
           <div className="step reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <span className="num">
               02 — Steal
             </span>
@@ -47,6 +67,15 @@ export default function Mechanics() {
           </div>
 
           <div className="step reveal">
+            <GlowingEffect
+              disabled={false}
+              borderWidth={2}
+              spread={60}
+              blur={0}
+              proximity={200}
+              inactiveZone={0}
+              movementDuration={1.5}
+            />
             <span className="num">
               03 — Survive
             </span>
