@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.local
+coverage/
+logs/
+*.log
+.cache/
+.mongodb-binaries/

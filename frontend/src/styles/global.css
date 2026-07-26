@@ -43,28 +43,33 @@ body{
 
 .route-transition{min-height:100svh;isolation:isolate;}
 
-@media(pointer:fine) and (prefers-reduced-motion:no-preference){
-  body,
-  a,
-  button,
-  input,
-  select,
-  textarea{cursor:none;}
+/* ================= LASER CURSOR ================= */
+/* .laser-on is set by <LaserCursor /> only while the effect is live, so the
+   native cursor always survives an unmount, a crash, or JS being disabled. */
+body.laser-on,
+body.laser-on a,
+body.laser-on button,
+body.laser-on select,
+body.laser-on summary,
+body.laser-on [role="button"]{cursor:none;}
 
-  .laser-cursor{position:fixed;top:0;left:0;z-index:1000;width:1px;height:1px;pointer-events:none;opacity:0;transition:opacity .18s ease;will-change:transform;}
-  .laser-cursor.is-active{opacity:1;}
-  .laser-trail{position:fixed;top:0;left:0;z-index:999;width:30px;height:2px;margin:-1px 0 0 -30px;border-radius:999px;pointer-events:none;opacity:0;background:linear-gradient(90deg,transparent,rgba(230,67,92,.72));box-shadow:0 0 9px 2px rgba(230,67,92,.35);transform-origin:right center;will-change:transform;}
-  .laser-trail.is-active{opacity:1;}
-  .laser-trail-one{transition:transform .07s linear,opacity .18s ease;}
-  .laser-trail-two{width:24px;margin-left:-24px;background:linear-gradient(90deg,transparent,rgba(230,67,92,.48));transition:transform .13s linear,opacity .2s ease;}
-  .laser-trail-three{width:18px;margin-left:-18px;background:linear-gradient(90deg,transparent,rgba(230,67,92,.28));transition:transform .2s linear,opacity .25s ease;}
-  .laser-trail-four{width:12px;margin-left:-12px;background:linear-gradient(90deg,transparent,rgba(230,67,92,.14));transition:transform .28s linear,opacity .3s ease;}
-  .laser-core{position:absolute;top:-3px;left:-3px;width:7px;height:7px;border-radius:50%;background:#fff4f6;box-shadow:0 0 0 2px rgba(230,67,92,.5),0 0 10px 3px rgba(230,67,92,.9),0 0 28px 8px rgba(192,41,63,.35);}
-  .laser-beam{position:absolute;right:3px;top:-.5px;width:52px;height:1px;background:linear-gradient(90deg,transparent,rgba(230,67,92,.08) 18%,rgba(230,67,92,.8));filter:drop-shadow(0 0 3px rgba(230,67,92,.8));transform-origin:right center;transform:rotate(-18deg);}
-  .laser-cursor.is-pressed .laser-core{animation:laser-pulse .32s ease-out;}
-}
+body.laser-on input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+body.laser-on textarea,
+body.laser-on [contenteditable="true"]{cursor:text;}
 
-@keyframes laser-pulse{0%{transform:scale(1)}50%{transform:scale(1.75)}100%{transform:scale(1)}}
+.laser-layer{position:fixed;inset:0;z-index:1000;pointer-events:none;opacity:0;transition:opacity .22s ease;contain:layout style;}
+.laser-layer.is-active{opacity:1;}
+.laser-layer.is-text{opacity:.4;}
+
+.laser-seg{position:absolute;top:0;left:0;width:1px;background:var(--blood-bright);box-shadow:0 0 6px rgba(230,67,92,.55);transform-origin:left center;will-change:transform,opacity;}
+
+.laser-dot{position:absolute;top:0;left:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 30%,#ffdde2 52%,var(--blood-bright) 100%);box-shadow:0 0 6px 1px rgba(230,67,92,.9),0 0 20px 5px rgba(230,67,92,.45),0 0 46px 14px rgba(192,41,63,.22);will-change:transform;}
+
+.laser-ring{position:absolute;top:0;left:0;width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;border:1px solid rgba(230,67,92,.6);box-shadow:0 0 14px rgba(230,67,92,.28),inset 0 0 14px rgba(230,67,92,.14);opacity:0;will-change:transform,opacity;}
+.laser-ring::before,
+.laser-ring::after{content:"";position:absolute;top:50%;left:50%;}
+.laser-ring::before{width:30px;height:1px;margin:-.5px 0 0 -15px;background:linear-gradient(90deg,rgba(230,67,92,.8) 0 24%,transparent 24% 76%,rgba(230,67,92,.8) 76% 100%);}
+.laser-ring::after{width:1px;height:30px;margin:-15px 0 0 -.5px;background:linear-gradient(180deg,rgba(230,67,92,.8) 0 24%,transparent 24% 76%,rgba(230,67,92,.8) 76% 100%);}
 
 img,
 svg{
