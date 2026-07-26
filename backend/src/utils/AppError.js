@@ -1,18 +1,41 @@
 "use strict";
 
 /**
- * Operational error carrying an HTTP status and a stable machine-readable code.
- * Anything thrown that is an AppError is safe to surface to the client verbatim.
+ * Standard application error.
+ *
+ * Every operational error in the API should throw AppError so the global
+ * error handler can return a consistent response.
  */
 class AppError extends Error {
+  /**
+   * @param {number} status HTTP status code
+   * @param {string} code Machine-readable error code
+   * @param {string} message Human-readable message
+   * @param {object} [details] Optional extra error details
+   */
   constructor(status, code, message, details) {
-    super(message || code || "Error");
+    super(message);
+
+    Error.captureStackTrace?.(this, this.constructor);
+
     this.name = "AppError";
-    this.status = status || 500;
+    this.status = Number(status) || 500;
     this.code = code || "INTERNAL";
     this.details = details;
-    this.expose = true;
-    Error.captureStackTrace?.(this, AppError);
+    this.expose = this.status < 500;
+  }
+
+  toJSON() {
+    const error = {
+      code: this.code,
+      message: this.message,
+    };
+
+    if (this.details !== undefined) {
+      error.details = this.details;
+    }
+
+    return { error };
   }
 }
 
