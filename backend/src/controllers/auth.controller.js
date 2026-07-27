@@ -7,10 +7,10 @@ const {
   clearAuthCookies,
 } = require("../utils/cookies");
 
-function refreshTokenFromRequest(req) {
+function getRefreshToken(req) {
   return (
-    req.cookies?.[config.cookie.refreshName] ||
-    req.body?.refreshToken ||
+    req.cookies?.[config.cookie.refreshName] ??
+    req.body?.refreshToken ??
     null
   );
 }
@@ -32,10 +32,11 @@ async function register(req, res, next) {
 
     return res.status(201).json({
       success: true,
+      message: "Registration successful.",
       user: result.user.toPublicJSON(),
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -55,17 +56,18 @@ async function login(req, res, next) {
 
     return res.json({
       success: true,
+      message: "Login successful.",
       user: result.user.toPublicJSON(),
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 
 async function refresh(req, res, next) {
   try {
     const result = await authService.refresh({
-      refreshToken: refreshTokenFromRequest(req),
+      refreshToken: getRefreshToken(req),
       req,
     });
 
@@ -79,16 +81,16 @@ async function refresh(req, res, next) {
       success: true,
       user: result.user.toPublicJSON(),
     });
-  } catch (err) {
+  } catch (error) {
     clearAuthCookies(res);
-    next(err);
+    next(error);
   }
 }
 
 async function logout(req, res, next) {
   try {
     await authService.logout({
-      refreshToken: refreshTokenFromRequest(req),
+      refreshToken: getRefreshToken(req),
       user: req.user,
       req,
     });
@@ -99,8 +101,8 @@ async function logout(req, res, next) {
       success: true,
       message: "Logged out successfully.",
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -117,8 +119,8 @@ async function logoutAll(req, res, next) {
       success: true,
       message: "Logged out from all devices.",
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -130,8 +132,8 @@ async function me(req, res, next) {
       success: true,
       user,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 }
 
