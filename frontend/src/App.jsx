@@ -2,12 +2,10 @@ import "./styles/global.css";
 import "./styles/store.css";
 
 import { useEffect } from "react";
-import { AnimatePresence } from "motion/react";
 import {
   BrowserRouter,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 
 import useLandingEffects from "./hooks/useLandingEffects";
@@ -68,39 +66,6 @@ function LandingPage() {
   );
 }
 
-function AnimatedRoutes() {
-  const location = useLocation();
-
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/store/*"
-          element={
-            <StoreProvider>
-              <StoreLayout>
-                <Routes>
-                  <Route index element={<StorePage />} />
-                  <Route path="product/:slug" element={<ProductPage />} />
-                  <Route path="cart" element={<CartPage />} />
-                  <Route path="checkout" element={<CheckoutPage />} />
-                  <Route path="success" element={<SuccessPage />} />
-                  <Route path="account" element={<AccountPage />} />
-                  <Route path="purchases" element={<PurchasesPage />} />
-                  <Route path="support" element={<SupportPage />} />
-                  <Route path="support/new" element={<NewTicketPage />} />
-                  <Route path="support/:ticketId" element={<TicketPage />} />
-                </Routes>
-              </StoreLayout>
-            </StoreProvider>
-          }
-        />
-      </Routes>
-    </AnimatePresence>
-  );
-}
-
 export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", "blood");
@@ -109,7 +74,25 @@ export default function App() {
   return (
     <BrowserRouter>
       <LaserCursor />
-      <AnimatedRoutes />
+
+      <StoreProvider>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+
+          <Route path="/store" element={<StoreLayout />}>
+            <Route index element={<StorePage />} />
+            <Route path="product/:id" element={<ProductPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="success" element={<SuccessPage />} />
+            <Route path="account" element={<AccountPage />} />
+            <Route path="purchases" element={<PurchasesPage />} />
+            <Route path="support" element={<SupportPage />} />
+            <Route path="support/new" element={<NewTicketPage />} />
+            <Route path="support/:id" element={<TicketPage />} />
+          </Route>
+        </Routes>
+      </StoreProvider>
     </BrowserRouter>
   );
 }
