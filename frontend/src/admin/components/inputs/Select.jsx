@@ -1,112 +1,91 @@
-import { useState, useRef, useEffect } from "react";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import "./Select.css";
 
 export default function Select({
-    value,
-    onChange,
+
+    label,
+
+    helper,
+
+    error,
+
     options = [],
-    placeholder = "Select...",
-    width = 220,
-}) {
 
-    const [open, setOpen] = useState(false);
+    className = "",
 
-    const ref = useRef(null);
+    ...props
 
-    useEffect(() => {
-
-        function handleClick(event){
-
-            if(ref.current && !ref.current.contains(event.target)){
-
-                setOpen(false);
-
-            }
-
-        }
-
-        window.addEventListener("mousedown",handleClick);
-
-        return ()=>window.removeEventListener("mousedown",handleClick);
-
-    },[]);
-
-    const selected =
-        options.find(option => option.value === value);
+}){
 
     return(
 
-        <div
-            ref={ref}
-            className="ui-select"
-            style={{width}}
-        >
+        <div className={`ui-select-wrapper ${className}`}>
 
-            <button
-                className="ui-select-trigger"
-                onClick={()=>setOpen(!open)}
-            >
+            {label && (
 
-                <span>
+                <label className="ui-select-label">
 
-                    {selected
-                        ? selected.label
-                        : placeholder}
+                    {label}
 
-                </span>
-
-                <ChevronDown
-                    size={18}
-                    className={open ? "rotate" : ""}
-                />
-
-            </button>
-
-            {open && (
-
-                <div className="ui-select-menu">
-
-                    {options.map(option=>(
-
-                        <button
-
-                            key={option.value}
-
-                            className="ui-select-option"
-
-                            onClick={()=>{
-
-                                onChange(option.value);
-
-                                setOpen(false);
-
-                            }}
-
-                        >
-
-                            <span>
-
-                                {option.label}
-
-                            </span>
-
-                            {value===option.value && (
-
-                                <Check size={16}/>
-
-                            )}
-
-                        </button>
-
-                    ))}
-
-                </div>
+                </label>
 
             )}
 
+            <div className={`ui-select-container ${error ? "error" : ""}`}>
+
+                <select
+
+                    className="ui-select"
+
+                    {...props}
+
+                >
+
+                    {options.map((option)=>(
+
+                        <option
+
+                            key={option.value}
+
+                            value={option.value}
+
+                        >
+
+                            {option.label}
+
+                        </option>
+
+                    ))}
+
+                </select>
+
+                <ChevronDown
+                    size={18}
+                    className="ui-select-icon"
+                />
+
+            </div>
+
+            {error ? (
+
+                <span className="ui-select-error">
+
+                    {error}
+
+                </span>
+
+            ) : helper ? (
+
+                <span className="ui-select-helper">
+
+                    {helper}
+
+                </span>
+
+            ) : null}
+
         </div>
 
-    )
+    );
 
 }

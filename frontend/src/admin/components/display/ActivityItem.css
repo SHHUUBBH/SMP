@@ -1,0 +1,55 @@
+.activity-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:16px;
+
+    padding:16px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+.activity-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.activity-content{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.activity-text{
+
+    color:#e5e7eb;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+.activity-text strong{
+
+    color:#fff;
+
+    font-weight:700;
+
+}
+
+.activity-time{
+
+    margin-top:6px;
+
+    color:#98a2b5;
+
+    font-size:12px;
+
+}
