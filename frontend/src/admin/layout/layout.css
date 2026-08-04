@@ -1,0 +1,673 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:"Inter",sans-serif;
+    background:#07090f;
+    color:#fff;
+}
+
+/* =====================================================
+   THEME
+===================================================== */
+
+:root{
+
+    --bg:#07090f;
+    --panel:#121622;
+    --panel-2:#171c29;
+
+    --border:rgba(255,255,255,.06);
+
+    --accent:#d92d20;
+
+    --text:#ffffff;
+
+    --muted:#98a2b5;
+
+    --sidebar-width:270px;
+
+    --sidebar-collapse:88px;
+
+    --radius:22px;
+
+}
+
+/* =====================================================
+   APP
+===================================================== */
+
+.admin-layout{
+
+    display:flex;
+
+    width:100%;
+
+    height:100vh;
+
+    background:
+        radial-gradient(circle at top,#3b1010 0%,transparent 45%),
+        radial-gradient(circle at bottom right,#1b0808 0%,transparent 40%),
+        var(--bg);
+
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+
+    width:var(--sidebar-width);
+
+    margin:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    border-radius:var(--radius);
+
+    background:rgba(18,22,34,.72);
+
+    backdrop-filter:blur(10px);
+
+    -webkit-backdrop-filter:blur(10px);
+
+    border:1px solid var(--border);
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.28);
+
+    transition:
+        width .22s ease;
+
+    flex-shrink:0;
+
+}
+
+.sidebar.collapsed{
+
+    width:var(--sidebar-collapse);
+
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.sidebar-logo{
+
+    height:84px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:20px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.logo-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.logo-main{
+
+    font-size:24px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+}
+
+.logo-sub{
+
+    margin-top:4px;
+
+    color:var(--accent);
+
+    font-size:11px;
+
+    letter-spacing:4px;
+
+}
+
+.sidebar.collapsed .logo-container{
+
+    align-items:center;
+
+}
+
+.sidebar.collapsed .logo-sub{
+
+    display:none;
+
+}
+
+.sidebar.collapsed .logo-main{
+
+    font-size:20px;
+
+}
+
+/* =====================================================
+   COLLAPSE BUTTON
+===================================================== */
+
+.collapse-btn{
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.04);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:
+        background-color .2s ease,
+        transform .2s ease;
+
+}
+
+.collapse-btn:hover{
+
+    background:rgba(217,45,32,.18);
+
+    transform:rotate(180deg);
+
+}
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.sidebar-nav{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    padding:18px;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+}
+
+.sidebar-nav a{
+
+    height:54px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:0 18px;
+
+    border-radius:16px;
+
+    color:var(--muted);
+
+    text-decoration:none;
+
+    position:relative;
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        border-color .2s ease;
+
+}
+
+.sidebar-nav a:hover{
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff;
+
+}
+
+.sidebar-nav a.active{
+
+    background:rgba(217,45,32,.16);
+
+    color:#fff;
+
+    border:1px solid rgba(217,45,32,.28);
+
+}
+
+.sidebar-nav a::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-18px;
+
+    width:4px;
+
+    height:0;
+
+    border-radius:999px;
+
+    background:var(--accent);
+
+    transition:height .2s ease;
+
+}
+
+.sidebar-nav a.active::before{
+
+    height:60%;
+
+}
+
+/* =====================================================
+   MENU ICON
+===================================================== */
+
+.menu-icon{
+
+    width:22px;
+
+    height:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+}
+
+.menu-icon svg{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+.menu-text{
+
+    font-size:15px;
+
+    font-weight:500;
+
+    white-space:nowrap;
+
+    transition:opacity .15s ease;
+
+}
+
+.sidebar.collapsed .menu-text{
+
+    opacity:0;
+
+    width:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+}
+
+.sidebar.collapsed .sidebar-nav a{
+
+    justify-content:center;
+
+    padding:0;
+
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.sidebar-footer{
+
+    padding:20px;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.sidebar-footer strong{
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+.sidebar-footer small{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+.sidebar.collapsed .sidebar-footer{
+
+    display:none;
+
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.sidebar-nav::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.sidebar-nav::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb{
+
+    background:#31384b;
+
+    border-radius:999px;
+
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover{
+
+    background:#d92d20;
+
+}
+/* =====================================================
+   MAIN
+===================================================== */
+
+.admin-main{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    padding:18px 18px 18px 0;
+
+    overflow:hidden;
+
+}
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.admin-content{
+
+    flex:1;
+
+    min-width:0;
+
+    overflow:auto;
+
+    border-radius:22px;
+
+    padding:28px;
+
+    background:rgba(12,15,23,.35);
+
+    backdrop-filter:blur(8px);
+
+    -webkit-backdrop-filter:blur(8px);
+
+    border:1px solid rgba(255,255,255,.04);
+
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+.admin-content::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+.admin-content::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+.admin-content::-webkit-scrollbar-thumb{
+
+    background:#30384b;
+
+    border-radius:999px;
+
+}
+
+.admin-content::-webkit-scrollbar-thumb:hover{
+
+    background:var(--accent);
+
+}
+
+/* =====================================================
+   UTILITIES
+===================================================== */
+
+.glass{
+
+    background:rgba(18,22,34,.72);
+
+    backdrop-filter:blur(10px);
+
+    -webkit-backdrop-filter:blur(10px);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+}
+
+.text-muted{
+
+    color:var(--muted);
+
+}
+
+.text-accent{
+
+    color:var(--accent);
+
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(14px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.admin-content>*{
+
+    animation:fadeIn .3s ease;
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width:1200px){
+
+    .admin-main{
+
+        padding:18px;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    .sidebar{
+
+        position:fixed;
+
+        top:18px;
+
+        left:18px;
+
+        bottom:18px;
+
+        margin:0;
+
+        z-index:1000;
+
+    }
+
+    .admin-main{
+
+        width:100%;
+
+        padding:18px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .admin-content{
+
+        padding:18px;
+
+    }
+
+}
+
+@media (max-width:600px){
+
+    .sidebar{
+
+        width:260px;
+
+    }
+
+    .sidebar.collapsed{
+
+        width:72px;
+
+    }
+
+    .admin-content{
+
+        border-radius:18px;
+
+    }
+
+}
+
+/* =====================================================
+   PERFORMANCE
+===================================================== */
+
+.sidebar,
+.admin-header,
+.admin-content{
+
+    will-change:transform;
+
+    transform:translateZ(0);
+
+}
+
+.sidebar *{
+
+    backface-visibility:hidden;
+
+    -webkit-font-smoothing:antialiased;
+
+}

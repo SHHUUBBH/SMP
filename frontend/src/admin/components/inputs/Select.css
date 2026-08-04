@@ -1,0 +1,135 @@
+.ui-select{
+
+    position:relative;
+
+}
+
+.ui-select-trigger{
+
+    width:100%;
+
+    height:46px;
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 16px;
+
+    transition:.25s;
+
+}
+
+.ui-select-trigger:hover{
+
+    border-color:rgba(255,255,255,.16);
+
+}
+
+.ui-select-trigger svg{
+
+    transition:.25s;
+
+}
+
+.rotate{
+
+    transform:rotate(180deg);
+
+}
+
+.ui-select-menu{
+
+    position:absolute;
+
+    top:56px;
+
+    left:0;
+
+    width:100%;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    background:#171c29;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+        0 20px 40px rgba(0,0,0,.35);
+
+    z-index:500;
+
+    animation:fadeDropdown .18s ease;
+
+}
+
+.ui-select-option{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 18px;
+
+    transition:.2s;
+
+}
+
+.ui-select-option:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
+
+@keyframes fadeDropdown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}   
